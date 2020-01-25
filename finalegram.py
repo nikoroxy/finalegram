@@ -21,7 +21,7 @@ import inspect
 
 # variables
 
-url = "http://www.allertaliguria.gov.it/"
+url = "https://allertaliguria.regione.liguria.it/"
 
 alertchars = ["G", "A", "R"]
 
@@ -127,7 +127,7 @@ def loopfetcher():
             if counter == 5:
                 log_err('5 tries failed, checking updown')
                 if allertaliguria_is_down():
-                    log_err('allertaliguria.gov.it is down')
+                    log_err('site is down')
                     down_start = datetime.now()
                     while allertaliguria_is_down():
                         time.sleep(30)
@@ -135,6 +135,9 @@ def loopfetcher():
                     log_err('back up, downtime = ' + total_down.min + 'minutes')
                     counter = 0
                     continue
+                log_err('site up, restarting counts')
+                counter = 0
+                continue
             time.sleep(30)
             continue
         else:
